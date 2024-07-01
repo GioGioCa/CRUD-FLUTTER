@@ -1,6 +1,6 @@
 # lista
 
-A new Flutter project.
+A new Flutter project based on Yt tutorial.
 
 ## Getting Started
 
