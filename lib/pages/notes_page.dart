@@ -61,29 +61,34 @@ class _NotesPageState extends State<NotesPage> {
     textController.text = note.text;
 
     showDialog(
-      context: context, 
+      context: context,
       builder: (context) => AlertDialog(
         title: Text("Update Note"),
         content: TextField(controller: textController),
         actions: [
           //Update button
-          MaterialButton(onPressed: () {
-            //Update note in db
-            context.read<NoteDatabase>().updateNote(note.id, textController.text);
-            //Clear the controller
-            textController.clear();
-            //pop-up dialog box
-            Navigator.pop(context);
-          },
-          child: const Text("Update"),
+          MaterialButton(
+            onPressed: () {
+              //Update note in db
+              context
+                  .read<NoteDatabase>()
+                  .updateNote(note.id, textController.text);
+              //Clear the controller
+              textController.clear();
+              //pop-up dialog box
+              Navigator.pop(context);
+            },
+            child: const Text("Update"),
           )
-          
         ],
       ),
-      );
+    );
   }
 
   //Delete a note
+  void deleteNote(int id) {
+    context.read<NoteDatabase>().deleteNote(id);
+  }
 
   @override
   Widget build(BuildContext context) {
