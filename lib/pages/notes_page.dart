@@ -125,7 +125,10 @@ class _NotesPageState extends State<NotesPage> {
                   ),
 
                   //Delete button
-                  
+                  IconButton(
+                    onPressed: () => deleteNote(note.id),
+                    icon: const Icon(Icons.delete),
+                  ),
                 ],
               ),
             );
