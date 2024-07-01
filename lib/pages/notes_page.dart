@@ -116,11 +116,16 @@ class _NotesPageState extends State<NotesPage> {
             return ListTile(
               title: Text(note.text),
               trailing: Row(
-                mainAxisAlignment: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   //Edit button
+                  IconButton(
+                    onPressed: () => updateNote(note),
+                    icon: const Icon(Icons.edit),
+                  ),
 
                   //Delete button
+                  
                 ],
               ),
             );
