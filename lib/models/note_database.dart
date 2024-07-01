@@ -45,5 +45,9 @@ class NoteDatabase {
     }
   }
 
-
+  //DELETE
+  Future<void> deleteNote(int id) async {
+    await isar.writeTxn(() => isar.notes.delete(id));
+    await fetchNotes();
+  }
 }
