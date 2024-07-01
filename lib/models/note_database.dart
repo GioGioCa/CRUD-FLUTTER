@@ -13,5 +13,20 @@ class NoteDatabase {
     );
   }
 
+  //List of Notes
+  final List<Note> currentNotes = [];
+
+  //CREATE
+  Future<void> addNote(String textFromUser) async {
+    //create a new note objet
+    final newNote = Note()..text = textFromUser;
+
+    //re-read from db
+    fetchNotes();
+
+    //save to db
+    await isar.writeTxn(() => isar.notes.put(newNote));
+  }
+
 
 }
