@@ -28,5 +28,12 @@ class NoteDatabase {
     await isar.writeTxn(() => isar.notes.put(newNote));
   }
 
+  //READ
+  Future<void> fetchNotes() async {
+    List<Note> fetchNotes = await isar.notes.where().findAll();
+    currentNotes.clear();
+    currentNotes.addAll(fetchNotes);
+  }
+
 
 }
