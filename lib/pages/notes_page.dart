@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lista/models/note.dart';
 import 'package:lista/models/note_database.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,14 @@ class NotesPage extends StatefulWidget {
 class _NotesPageState extends State<NotesPage> {
   //Text controller to access what the user typed
   final textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    //Fetch existing notes
+    readNotes();
+  }
 
   //Create a note
   void createNote() {
@@ -28,6 +37,9 @@ class _NotesPageState extends State<NotesPage> {
               //Add to db
               context.read<NoteDatabase>().addNote(textController.text);
 
+              //Clear controller
+              textController.clear();
+
               //Pop up dialog
               Navigator.pop(context);
             },
@@ -39,6 +51,9 @@ class _NotesPageState extends State<NotesPage> {
   }
 
   //Read a note
+  void readNotes() {
+    context.read<NoteDatabase>().fetchNotes();
+  }
 
   //Update a note
 
@@ -46,6 +61,12 @@ class _NotesPageState extends State<NotesPage> {
 
   @override
   Widget build(BuildContext context) {
+    //Note db
+    final noteDatabase = context.watch<NoteDatabase>();
+
+    //Current notes
+    List<Note> currentNotes = noteDatabase.currentNotes;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Notes'),
@@ -54,6 +75,25 @@ class _NotesPageState extends State<NotesPage> {
         onPressed: () {},
         child: const Icon(Icons.add),
       ),
+      body: ListView.builder(
+          itemCount: currentNotes.length,
+          itemBuilder: (context, index) {
+            //get individual note
+            final note = currentNotes[index];
+
+            //list tile ui
+            return ListTile(
+              title: Text(note.text),
+              trailing: Row(
+                mainAxisAlignment: MainAxisSize.min,
+                children: [
+                  //Edit button
+
+                  //Delete button
+                ],
+              ),
+            );
+          }),
     );
   }
 }
