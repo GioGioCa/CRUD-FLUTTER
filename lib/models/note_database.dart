@@ -35,5 +35,15 @@ class NoteDatabase {
     currentNotes.addAll(fetchNotes);
   }
 
+  //UPDATE - a note in db
+  Future<void> updateNote(int id, String newText) async {
+    final existingNote = await isar.notes.get(id);
+    if (existingNote != null) {
+      existingNote.text = newText;
+      await isar.writeTxn(() => isar.notes.put(existingNote));
+      await fetchNotes();
+    }
+  }
+
 
 }
